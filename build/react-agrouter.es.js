@@ -244,6 +244,7 @@ var Router = function (_React$Component) {
       return {
         getRouteContent: getRouteContent,
         subscribe: subscribe,
+        unsubscribe: unsubscribe,
         navigateTo: navigateTo,
         routeIndex: 0
       };

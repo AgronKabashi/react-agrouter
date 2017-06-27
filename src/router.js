@@ -15,6 +15,7 @@ export class Router extends React.Component {
     return {
       getRouteContent,
       subscribe,
+      unsubscribe,
       navigateTo,
       routeIndex: 0
     };
