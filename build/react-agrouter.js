@@ -236,8 +236,9 @@ var Router = function (_React$Component) {
     key: "getChildContext",
     value: function getChildContext() {
       var getRouteContent = this.getRouteContent,
+          navigateTo = this.navigateTo,
           subscribe = this.subscribe,
-          navigateTo = this.navigateTo;
+          unsubscribe = this.unsubscribe;
 
       return {
         getRouteContent: getRouteContent,

@@ -11,7 +11,7 @@ export class Router extends React.Component {
   }
 
   getChildContext () {
-    const { getRouteContent, subscribe, navigateTo } = this;
+    const { getRouteContent, navigateTo, subscribe, unsubscribe } = this;
     return {
       getRouteContent,
       subscribe,
