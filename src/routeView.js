@@ -25,10 +25,7 @@ export class RouteView extends React.Component {
     const { getRouteContent, routeIndex } = this.context;
     const component = getRouteContent(routeIndex);
 
-    return <div>
-      RouteView {routeIndex} - {Date.now()}
-      {component ? component : <div>{children}</div>}
-    </div>;
+    return component ? component : <div>{children}</div>;
   }
 }
 

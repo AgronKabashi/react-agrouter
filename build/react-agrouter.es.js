@@ -150,18 +150,10 @@ var RouteView = function (_React$Component) {
 
       var component = getRouteContent(routeIndex);
 
-      return React.createElement(
+      return component ? component : React.createElement(
         "div",
         null,
-        "RouteView ",
-        routeIndex,
-        " - ",
-        Date.now(),
-        component ? component : React.createElement(
-          "div",
-          null,
-          children
-        )
+        children
       );
     }
   }]);
