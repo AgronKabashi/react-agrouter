@@ -8,8 +8,8 @@ export class Link extends React.Component {
   }
 
   render () {
-    const { children, to } = this.props;
-    return <a href={to} onClick={this.onClick}>{children}</a>;
+    const { children, to, ...restProps } = this.props;
+    return <a href={to} onClick={this.onClick} {...restProps}>{children}</a>;
   }
 }
 

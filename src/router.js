@@ -3,6 +3,8 @@ import PropTypes from "prop-types";
 import { createRouter } from "agrouter";
 import { RouteView } from "./routeView";
 
+const defaultRouteComponents = [];
+
 export class Router extends React.Component {
   constructor (...args) {
     super(...args);
@@ -31,7 +33,7 @@ export class Router extends React.Component {
   }
 
   getRouteContent = routeIndex => {
-    return (this.state.routeComponents || [])[routeIndex];
+    return (this.state.routeComponents || defaultRouteComponents)[routeIndex];
   }
 
   subscribe = (reference, callback) => {

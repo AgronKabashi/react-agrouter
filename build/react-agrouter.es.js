@@ -32,6 +32,20 @@ var createClass = function () {
 
 
 
+var _extends = Object.assign || function (target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i];
+
+    for (var key in source) {
+      if (Object.prototype.hasOwnProperty.call(source, key)) {
+        target[key] = source[key];
+      }
+    }
+  }
+
+  return target;
+};
+
 
 
 var inherits = function (subClass, superClass) {
@@ -58,7 +72,17 @@ var inherits = function (subClass, superClass) {
 
 
 
+var objectWithoutProperties = function (obj, keys) {
+  var target = {};
 
+  for (var i in obj) {
+    if (keys.indexOf(i) >= 0) continue;
+    if (!Object.prototype.hasOwnProperty.call(obj, i)) continue;
+    target[i] = obj[i];
+  }
+
+  return target;
+};
 
 var possibleConstructorReturn = function (self, call) {
   if (!self) {
@@ -93,11 +117,12 @@ var Link = function (_React$Component) {
     value: function render() {
       var _props = this.props,
           children = _props.children,
-          to = _props.to;
+          to = _props.to,
+          restProps = objectWithoutProperties(_props, ["children", "to"]);
 
       return React.createElement(
         "a",
-        { href: to, onClick: this.onClick },
+        _extends({ href: to, onClick: this.onClick }, restProps),
         children
       );
     }
@@ -167,6 +192,8 @@ RouteView.contextTypes = {
   routeIndex: PropTypes.number
 };
 
+var defaultRouteComponents = [];
+
 var Router = function (_React$Component) {
   inherits(Router, _React$Component);
 
@@ -182,7 +209,7 @@ var Router = function (_React$Component) {
     var _this = possibleConstructorReturn(this, (_ref = Router.__proto__ || Object.getPrototypeOf(Router)).call.apply(_ref, [this].concat(args)));
 
     _this.getRouteContent = function (routeIndex) {
-      return (_this.state.routeComponents || [])[routeIndex];
+      return (_this.state.routeComponents || defaultRouteComponents)[routeIndex];
     };
 
     _this.subscribe = function (reference, callback) {
