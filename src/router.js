@@ -45,12 +45,11 @@ export class Router extends React.Component {
   }
 
   navigateTo = (pathname, pushState = true) => {
-    const { actionPayloads = [], pathParts } = this.router.navigate(pathname, pushState);
-    const routeComponents = actionPayloads.filter(data => React.isValidElement(data));
+    const { uriSegments = [] } = this.router.navigate(pathname, pushState);
+    const routeComponents = uriSegments.filter(({ actionResult }) => React.isValidElement(actionResult));
 
     this.setState({
-      actionPayloads,
-      pathParts,
+      uriSegments,
       routeComponents
     }, () => this.routeViewSubscribers.forEach(subscriber => subscriber()));
   }
@@ -59,7 +58,7 @@ export class Router extends React.Component {
     window.removeEventListener("popstate", this.onLocationChange, false);
   }
 
-  onLocationChange = ({ state }) => {
+  onLocationChange = (/* { state } */) => {
     this.navigateTo(document.location.pathname, false);
   }
 

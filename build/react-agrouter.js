@@ -230,17 +230,16 @@ var Router = function (_React$Component) {
       var pushState = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
 
       var _this$router$navigate = _this.router.navigate(pathname, pushState),
-          _this$router$navigate2 = _this$router$navigate.actionPayloads,
-          actionPayloads = _this$router$navigate2 === undefined ? [] : _this$router$navigate2,
-          pathParts = _this$router$navigate.pathParts;
+          _this$router$navigate2 = _this$router$navigate.uriSegments,
+          uriSegments = _this$router$navigate2 === undefined ? [] : _this$router$navigate2;
 
-      var routeComponents = actionPayloads.filter(function (data) {
-        return React.isValidElement(data);
+      var routeComponents = uriSegments.filter(function (_ref2) {
+        var actionResult = _ref2.actionResult;
+        return React.isValidElement(actionResult);
       });
 
       _this.setState({
-        actionPayloads: actionPayloads,
-        pathParts: pathParts,
+        uriSegments: uriSegments,
         routeComponents: routeComponents
       }, function () {
         return _this.routeViewSubscribers.forEach(function (subscriber) {
@@ -249,9 +248,7 @@ var Router = function (_React$Component) {
       });
     };
 
-    _this.onLocationChange = function (_ref2) {
-      var state = _ref2.state;
-
+    _this.onLocationChange = function () /* { state } */{
       _this.navigateTo(document.location.pathname, false);
     };
 
