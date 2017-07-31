@@ -1,5 +1,5 @@
 # react-agrouter
-react-agrouter is a React/Preact routing library using agrouter.
+React/Preact routing library based on [agrouter](https://github.com/AgronKabashi/agrouter).
 
 ### Installation
 ```
@@ -30,7 +30,7 @@ const HomeComponent = () => (
     <h1>Home</h1>
     <RouteView>
       Default content for this component. Can be replaced with route specific content.
-    <RouteView>
+    </RouteView>
   </div>
 );
 ```

@@ -1,6 +1,6 @@
 {
   "name": "react-agrouter",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "React/Preact routing components based on agrouter",
   "main": "build/react-agrouter.js",
   "module": "build/react-agrouter.es.js",
