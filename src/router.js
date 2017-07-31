@@ -46,7 +46,9 @@ export class Router extends React.Component {
 
   navigateTo = (pathname, pushState = true) => {
     const { uriSegments = [] } = this.router.navigate(pathname, pushState);
-    const routeComponents = uriSegments.filter(({ actionResult }) => React.isValidElement(actionResult));
+    const routeComponents = uriSegments
+      .filter(({ actionResult }) => React.isValidElement(actionResult))
+      .map(({ actionResult }) => actionResult);
 
     this.setState({
       uriSegments,

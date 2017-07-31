@@ -236,6 +236,9 @@ var Router = function (_React$Component) {
       var routeComponents = uriSegments.filter(function (_ref2) {
         var actionResult = _ref2.actionResult;
         return React.isValidElement(actionResult);
+      }).map(function (_ref3) {
+        var actionResult = _ref3.actionResult;
+        return actionResult;
       });
 
       _this.setState({
