@@ -1,23 +1,15 @@
 import babel from "rollup-plugin-babel";
-import replace from "rollup-plugin-replace";
+
+const packageJson = require("./package.json");
 
 export default {
-  entry: "src/index.js",
-  external: ["react", "prop-types", "agrouter"],
-  targets: [
-    {
-      dest: "build/react-agrouter.js",
-      format: "cjs"
-    },
-    {
-      dest: "build/react-agrouter.es.js",
-      format: "es"
-    }
-  ],
+  input: packageJson.module,
+  external: Object.keys(packageJson.dependencies),
+  output: {
+    file: packageJson.main,
+    format: "cjs"
+  },
   plugins: [
-    replace({
-      "process.env.NODE_ENV": "'production'"
-    }),
     babel()
   ]
 };

@@ -278,7 +278,10 @@ var Router = function (_React$Component) {
   }, {
     key: "componentWillMount",
     value: function componentWillMount() {
-      this.router = agrouter.createRouter(this.props.routes);
+      this.router = agrouter.createRouter(this.props.routes, {
+        history: window.history // TODO: Use agnostic history so we can do SSR
+      });
+
       window.addEventListener("popstate", this.onLocationChange, false);
     }
   }, {

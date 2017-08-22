@@ -24,7 +24,10 @@ export class Router extends React.Component {
   }
 
   componentWillMount () {
-    this.router = createRouter(this.props.routes);
+    this.router = createRouter(this.props.routes, {
+      history: window.history // TODO: Use agnostic history so we can do SSR
+    });
+
     window.addEventListener("popstate", this.onLocationChange, false);
   }
 
