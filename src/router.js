@@ -48,15 +48,17 @@ export class Router extends React.Component {
   }
 
   navigateTo = (pathname, pushState = true) => {
-    const { uriSegments = [] } = this.router.navigate(pathname, pushState);
-    const routeComponents = uriSegments
-      .filter(({ actionResult }) => React.isValidElement(actionResult))
-      .map(({ actionResult }) => actionResult);
+    this.router.navigate(pathname, pushState) // eslint-disable-line promise/catch-or-return
+      .then(({ uriSegments = [] }) => { // eslint-disable-line promise/always-return
+        const routeComponents = uriSegments
+          .filter(({ actionResult }) => React.isValidElement(actionResult))
+          .map(({ actionResult }) => actionResult);
 
-    this.setState({
-      uriSegments,
-      routeComponents
-    }, () => this.routeViewSubscribers.forEach(subscriber => subscriber()));
+        this.setState({
+          uriSegments,
+          routeComponents
+        }, () => this.routeViewSubscribers.forEach(subscriber => subscriber()));
+      });
   }
 
   componentWillUnmount () {

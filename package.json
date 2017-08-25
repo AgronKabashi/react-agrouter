@@ -1,6 +1,6 @@
 {
   "name": "react-agrouter",
-  "version": "0.3.1",
+  "version": "0.4.0",
   "description": "React/Preact routing components based on agrouter",
   "main": "build/react-agrouter.js",
   "module": "src/index.js",
@@ -25,7 +25,7 @@
   },
   "homepage": "https://github.com/AgronKabashi/react-agrouter#readme",
   "dependencies": {
-    "agrouter": "^2.0.1",
+    "agrouter": "^3.0.0",
     "prop-types": "^15.5.10",
     "react": "^15.6.1"
   },

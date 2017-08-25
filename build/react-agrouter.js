@@ -229,24 +229,26 @@ var Router = function (_React$Component) {
     _this.navigateTo = function (pathname) {
       var pushState = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
 
-      var _this$router$navigate = _this.router.navigate(pathname, pushState),
-          _this$router$navigate2 = _this$router$navigate.uriSegments,
-          uriSegments = _this$router$navigate2 === undefined ? [] : _this$router$navigate2;
+      _this.router.navigate(pathname, pushState) // eslint-disable-line promise/catch-or-return
+      .then(function (_ref2) {
+        var _ref2$uriSegments = _ref2.uriSegments,
+            uriSegments = _ref2$uriSegments === undefined ? [] : _ref2$uriSegments;
+        // eslint-disable-line promise/always-return
+        var routeComponents = uriSegments.filter(function (_ref3) {
+          var actionResult = _ref3.actionResult;
+          return React.isValidElement(actionResult);
+        }).map(function (_ref4) {
+          var actionResult = _ref4.actionResult;
+          return actionResult;
+        });
 
-      var routeComponents = uriSegments.filter(function (_ref2) {
-        var actionResult = _ref2.actionResult;
-        return React.isValidElement(actionResult);
-      }).map(function (_ref3) {
-        var actionResult = _ref3.actionResult;
-        return actionResult;
-      });
-
-      _this.setState({
-        uriSegments: uriSegments,
-        routeComponents: routeComponents
-      }, function () {
-        return _this.routeViewSubscribers.forEach(function (subscriber) {
-          return subscriber();
+        _this.setState({
+          uriSegments: uriSegments,
+          routeComponents: routeComponents
+        }, function () {
+          return _this.routeViewSubscribers.forEach(function (subscriber) {
+            return subscriber();
+          });
         });
       });
     };
