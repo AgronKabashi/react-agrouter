@@ -312,7 +312,7 @@ Router.childContextTypes = {
   routeIndex: PropTypes.number
 };
 
-exports.ROUTER_PRESETS = agrouter.ROUTER_PRESETS;
+exports.ROUTE_PRESETS = agrouter.ROUTE_PRESETS;
 exports.Link = Link;
 exports.Router = Router;
 exports.RouteView = RouteView;
