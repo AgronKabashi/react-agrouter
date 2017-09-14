@@ -37,5 +37,6 @@ RouteView.contextTypes = {
 };
 
 RouteView.propTypes = {
-  children: PropTypes.array
+  children: PropTypes.array,
+  isLoading: PropTypes.bool
 };

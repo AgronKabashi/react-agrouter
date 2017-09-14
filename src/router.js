@@ -48,13 +48,18 @@ export class Router extends React.Component {
   }
 
   navigateTo = (pathname, pushState = true) => {
+    const deferedLoading = setTimeout(() => this.setState({ isLoading: true }));
+
     this.router.navigate(pathname, pushState) // eslint-disable-line promise/catch-or-return
       .then(({ uriSegments = [] }) => { // eslint-disable-line promise/always-return
+        clearTimeout(deferedLoading);
+
         const routeComponents = uriSegments
           .filter(({ actionResult }) => React.isValidElement(actionResult))
           .map(({ actionResult }) => actionResult);
 
         this.setState({
+          isLoading: false,
           uriSegments,
           routeComponents
         }, () => this.routeViewSubscribers.forEach(subscriber => subscriber()));
@@ -70,7 +75,7 @@ export class Router extends React.Component {
   }
 
   render () {
-    return <RouteView />;
+    return <RouteView isLoading={this.state.isLoading} />;
   }
 }
 

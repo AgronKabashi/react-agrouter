@@ -229,11 +229,17 @@ var Router = function (_React$Component) {
     _this.navigateTo = function (pathname) {
       var pushState = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
 
+      var deferedLoading = setTimeout(function () {
+        return _this.setState({ isLoading: true });
+      });
+
       _this.router.navigate(pathname, pushState) // eslint-disable-line promise/catch-or-return
       .then(function (_ref2) {
         var _ref2$uriSegments = _ref2.uriSegments,
             uriSegments = _ref2$uriSegments === undefined ? [] : _ref2$uriSegments;
         // eslint-disable-line promise/always-return
+        clearTimeout(deferedLoading);
+
         var routeComponents = uriSegments.filter(function (_ref3) {
           var actionResult = _ref3.actionResult;
           return React.isValidElement(actionResult);
@@ -243,6 +249,7 @@ var Router = function (_React$Component) {
         });
 
         _this.setState({
+          isLoading: false,
           uriSegments: uriSegments,
           routeComponents: routeComponents
         }, function () {
@@ -299,7 +306,7 @@ var Router = function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      return React.createElement(RouteView, null);
+      return React.createElement(RouteView, { isLoading: this.state.isLoading });
     }
   }]);
   return Router;
