@@ -4,12 +4,22 @@ const packageJson = require("./package.json");
 
 export default {
   input: packageJson.module,
-  external: Object.keys(packageJson.dependencies),
+  external: ["agrouter", "react", "prop-types"],
   output: {
     file: packageJson.main,
     format: "cjs"
   },
   plugins: [
-    babel()
+    babel({
+      presets: [
+        ["es2015", { modules: false }]
+      ],
+      plugins: [
+        "external-helpers",
+        "transform-object-rest-spread",
+        "transform-class-properties",
+        "transform-react-jsx"
+      ]
+    })
   ]
 };
