@@ -140,6 +140,11 @@ Link.contextTypes = {
   navigateTo: PropTypes.function
 };
 
+Link.propTypes = {
+  children: PropTypes.array,
+  to: PropTypes.string.isRequired
+};
+
 var RouteView = function (_React$Component) {
   inherits(RouteView, _React$Component);
 
@@ -196,6 +201,11 @@ RouteView.contextTypes = {
   unsubscribe: PropTypes.func.isRequired,
   getRouteContent: PropTypes.func.isRequired,
   routeIndex: PropTypes.number
+};
+
+RouteView.propTypes = {
+  children: PropTypes.array,
+  isLoading: PropTypes.bool
 };
 
 var defaultRouteComponents = [];
@@ -291,17 +301,17 @@ var Router = function (_React$Component) {
         history: window.history // TODO: Use agnostic history so we can do SSR
       });
 
-      window.addEventListener("popstate", this.onLocationChange, false);
+      window.addEventListener("popstate", this.onLocationChange);
+    }
+  }, {
+    key: "componentWillUnmount",
+    value: function componentWillUnmount() {
+      window.removeEventListener("popstate", this.onLocationChange);
     }
   }, {
     key: "componentDidMount",
     value: function componentDidMount() {
       this.navigateTo(document.location.pathname, false);
-    }
-  }, {
-    key: "componentWillUnmount",
-    value: function componentWillUnmount() {
-      window.removeEventListener("popstate", this.onLocationChange, false);
     }
   }, {
     key: "render",
@@ -314,9 +324,14 @@ var Router = function (_React$Component) {
 
 Router.childContextTypes = {
   getRouteContent: PropTypes.func,
+  unsubscribe: PropTypes.func,
   subscribe: PropTypes.func,
   navigateTo: PropTypes.func,
   routeIndex: PropTypes.number
+};
+
+Router.propTypes = {
+  routes: PropTypes.object.isRequired
 };
 
 exports.ROUTE_PRESETS = agrouter.ROUTE_PRESETS;

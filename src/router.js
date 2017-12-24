@@ -28,7 +28,11 @@ export class Router extends React.Component {
       history: window.history // TODO: Use agnostic history so we can do SSR
     });
 
-    window.addEventListener("popstate", this.onLocationChange, false);
+    window.addEventListener("popstate", this.onLocationChange);
+  }
+
+  componentWillUnmount () {
+    window.removeEventListener("popstate", this.onLocationChange);
   }
 
   componentDidMount () {
@@ -66,10 +70,6 @@ export class Router extends React.Component {
       });
   }
 
-  componentWillUnmount () {
-    window.removeEventListener("popstate", this.onLocationChange, false);
-  }
-
   onLocationChange = (/* { state } */) => {
     this.navigateTo(document.location.pathname, false);
   }
@@ -81,6 +81,7 @@ export class Router extends React.Component {
 
 Router.childContextTypes = {
   getRouteContent: PropTypes.func,
+  unsubscribe: PropTypes.func,
   subscribe: PropTypes.func,
   navigateTo: PropTypes.func,
   routeIndex: PropTypes.number
